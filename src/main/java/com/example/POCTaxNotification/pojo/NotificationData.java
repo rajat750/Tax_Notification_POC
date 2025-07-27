@@ -11,6 +11,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Setter
 @Getter
+@ToString
 @Builder
 public class NotificationData {
 

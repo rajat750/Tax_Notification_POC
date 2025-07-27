@@ -1,5 +1,6 @@
 package com.example.POCTaxNotification.controller;
 
+import com.example.POCTaxNotification.kafkaProducer.KafkaProducerService;
 import com.example.POCTaxNotification.pojo.NotificationData;
 import com.example.POCTaxNotification.services.TaxNotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +16,13 @@ public class TaxNotification {
     @Autowired
     TaxNotificationService taxNotificationService;
 
+    @Autowired
+    KafkaProducerService kafkaProducerService;
+
     @PostMapping("notification")
     public void acceptNotificationData(@RequestBody NotificationData dataDto){
        taxNotificationService.acceptNotificationData(dataDto);
+       kafkaProducerService.sendMessage(dataDto);
     }
 
     @GetMapping("notification/{id}")
